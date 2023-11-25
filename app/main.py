@@ -4,15 +4,15 @@ import os.path
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from lanhackbackend.api.data.storage import storage
-from lanhackbackend.api.routes.base import api_router
-from lanhackfrontend.routes.pages import pages_router
+from backend.data.storage import storage
+from backend.routes.base import api_router
+from frontend.routes.pages import pages_router
 
 # init fastapi
 api = FastAPI()
 api.mount(
     "/static",
-    StaticFiles(directory=os.path.realpath("./lanhackfrontend/static")),
+    StaticFiles(directory=os.path.realpath("./frontend/static")),
     name="static",
 )
 api.include_router(api_router, prefix="/api")

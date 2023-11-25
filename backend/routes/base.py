@@ -1,8 +1,8 @@
 from fastapi.routing import APIRouter
 from fastapi.responses import JSONResponse
 
-import lanhackbackend.api.routes.ingest as ingest
-from lanhackbackend.api.data.storage import storage
+import backend.routes.ingest as ingest
+from backend.data.storage import storage
 
 api_router = APIRouter()
 api_router.include_router(ingest.ingest_router, prefix="/ingest")

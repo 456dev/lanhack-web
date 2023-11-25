@@ -2,7 +2,7 @@ from fastapi.responses import JSONResponse
 from fastapi.routing import APIRouter
 from pydantic import BaseModel
 
-from lanhackbackend.api.data.storage import storage
+from backend.data.storage import storage
 
 ingest_router = APIRouter()
 
