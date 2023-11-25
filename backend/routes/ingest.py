@@ -1,4 +1,4 @@
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from fastapi.routing import APIRouter
 
 import backend.models.api as api_models, backend.models.ingest as ingest_models
@@ -8,18 +8,17 @@ from backend.websocket import socket_manager
 ingest_router = APIRouter()
 
 
-# check status of ingest (get)
 @ingest_router.get("/status")
-async def status():
+async def status() -> api_models.Status:
     return api_models.Success()
 
 
-# push uid to storage (post)
-@ingest_router.post("/push-uid")
-async def push_uid(body: ingest_models.UIDModel):
+@ingest_router.post("/push-uid", response_model=api_models.Success, responses={400: {"model": api_models.Error}})
+async def push_uid(body: ingest_models.UIDModel, response: Response) -> api_models.Status:
     uid = storage.push_uid(body.uid)
     if uid is not None:
         await socket_manager.broadcast(uid)
-        return JSONResponse(content={"status": "success"}, status_code=200)
+        return api_models.Success()
     else:
-        return JSONResponse(content={"status": "error"}, status_code=500)
+        response.status_code = 400
+        return api_models.Error(message=result[1])
