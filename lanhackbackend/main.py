@@ -4,14 +4,15 @@ from fastapi.staticfiles import StaticFiles
 
 from lanhackbackend.api.data.storage import storage
 from lanhackbackend.api.routes.base import api_router
+from lanhackfrontend.pages import pages_router
 
 # init fastapi
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="./lanhackfrontend"), name="static")
 app.include_router(api_router, prefix="/api")
+app.include_router(pages_router)
 
-# init storage
-storage.init()
+app.add_event_handler("startup", storage.init)
 
 
 def main():
