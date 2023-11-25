@@ -22,12 +22,20 @@ class Storage:
             # load json data
             with open("api/data/uids.json", "r") as f:
                 data = json.load(f)
-            # append new uid
-            item = {"uid": uid, "timestamp": str(datetime.datetime.now())}
-            data["uids"].append(item)
+
+            # append new uid to data
+            # timestamp in ISO format
+            data["uids"].append(
+                {
+                    "uid": uid,
+                    "timestamp": datetime.datetime.now().isoformat(),
+                }
+            )
+
             # write new uid to file
             with open("api/data/uids.json", "w") as f:
                 json.dump(data, f)
+
             return True
         except:
             return False

@@ -1,5 +1,6 @@
 from fastapi.routing import APIRouter
 from fastapi.requests import Request
+from fastapi.responses import Response
 
 from api.data.storage import storage
 
@@ -9,7 +10,7 @@ router = APIRouter()
 # APP ROUTES
 @router.get("/")
 async def root():
-    return {"result": 200}
+    return Response(status_code=200)
 
 
 # push uid to server (post)
@@ -19,7 +20,7 @@ async def root():
 async def push(request: Request):
     json = await request.json()
     success = storage.push_uid(json["uid"])
-    return {"result": 200 if success else 500}
+    return Response(status_code=200 if success else 500)
 
 
 # return all uids from server (get)
