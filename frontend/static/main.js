@@ -1,6 +1,6 @@
 function main() {
   updateUIDList();
-  setInterval(updateUIDList, 5000);
+  setInterval(updateUIDList, 1000);
 }
 
 function updateUIDList() {
@@ -20,8 +20,9 @@ function setUIDList(uids) {
 }
 
 function createUIDElement(uid) {
-  var element = document.createElement("li");
-  element.className = "list-group-item list-group-item-light fs-4";
-  element.innerText = uid.uid;
+  var element = document.createElement("button");
+  element.setAttribute("type", "button");
+  element.setAttribute("class", "list-group-item list-group-item-action fs-2");
+  element.innerHTML = uid.uid;
   return element;
 }
