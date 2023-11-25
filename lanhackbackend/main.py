@@ -5,10 +5,12 @@ from fastapi.staticfiles import StaticFiles
 from lanhackbackend.api.data.storage import storage
 from lanhackbackend.api.routes.base import api_router
 from lanhackfrontend.pages import pages_router
+import lanhackfrontend
+import os.path
 
 # init fastapi
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="./lanhackfrontend"), name="static")
+app.mount("/static", StaticFiles(directory=os.path.dirname(lanhackfrontend.pages.__file__)), name="static")
 app.include_router(api_router, prefix="/api")
 app.include_router(pages_router)
 
