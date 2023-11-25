@@ -2,7 +2,7 @@ from fastapi.routing import APIRouter
 from fastapi.requests import Request
 from fastapi.responses import Response
 
-from api.data.storage import storage
+from lanhackbackend.api.data.storage import storage
 
 router = APIRouter()
 

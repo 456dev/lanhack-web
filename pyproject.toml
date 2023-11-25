@@ -11,6 +11,8 @@ python = "^3.11"
 fastapi = "^0.104.1"
 uvicorn = "^0.24.0.post1"
 
+[tool.poetry.scripts]
+lanhackbackend = "lanhackbackend.main:main"
 
 [build-system]
 requires = ["poetry-core"]
