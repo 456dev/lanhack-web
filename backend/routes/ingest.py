@@ -15,10 +15,10 @@ async def status() -> api_models.Status:
 
 @ingest_router.post("/push-uid", response_model=api_models.Success, responses={400: {"model": api_models.Error}})
 async def push_uid(body: ingest_models.UIDModel, response: Response) -> api_models.Status:
-    uid = storage.push_uid(body.uid)
-    if uid is not None:
-        await socket_manager.broadcast(uid)
+    status, value = storage.push_uid(body.uid)
+    if status:
+        await socket_manager.broadcast(value)
         return api_models.Success()
     else:
         response.status_code = 400
-        return api_models.Error(message=result[1])
+        return api_models.Error(message=str(value))

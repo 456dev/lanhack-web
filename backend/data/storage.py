@@ -22,7 +22,7 @@ class Storage:
             # file does not exist, create it and write init json
             self.__write_init_json()
 
-    def push_uid(self, uid: str) -> Union[tuple[Literal[True], Literal[None]],tuple[Literal[False], str]]:
+    def push_uid(self, uid: str):
         try:
             # load json data
             with open(FILE_PATH, "r") as f:
@@ -40,9 +40,9 @@ class Storage:
             with open(FILE_PATH, "w") as f:
                 json.dump(data, f)
 
-            return item
-        except:
-            return None
+            return (True, item)
+        except Exception as e:
+            return (False, e)
 
     def get_uids(self) -> json:
         with open(FILE_PATH, "r") as f:
