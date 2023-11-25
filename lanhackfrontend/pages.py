@@ -1,11 +1,11 @@
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
-from lanhackbackend.main import app
+from fastapi import APIRouter
 
-pages_router = app
-templates = Jinja2Templates(directory="lanhackfrontend/templates")
+pages_router = APIRouter()
+templates = Jinja2Templates(directory="./lanhackfrontend")
 
 
-@app.get("/")
+@pages_router.get("/")
 def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
