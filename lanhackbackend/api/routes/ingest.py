@@ -1,6 +1,7 @@
 from fastapi.requests import Request
-from fastapi.responses import Response, JSONResponse
+from fastapi.responses import JSONResponse
 from fastapi.routing import APIRouter
+from pydantic import BaseModel
 
 from lanhackbackend.api.data.storage import storage
 
@@ -9,14 +10,17 @@ ingest_router = APIRouter()
 
 @ingest_router.get("/status")
 async def root():
-    response = JSONResponse({"status": "success"})
-    response.status_code = 200
-    return response
+    return JSONResponse(content={"status": "success"}, status_code=200)
+
+
+class CardRead(BaseModel):
+    uid: str
 
 
 @ingest_router.post("/cardread")
-async def push(request: Request):
-    # todo: use models
-    json = await request.json()
-    success = storage.push_uid(json["uid"])
-    return Response(status_code=200 if success else 400)
+async def push(body: CardRead):
+    success = storage.push_uid(body.uid)
+    if success:
+        return JSONResponse(content={"status": "success"}, status_code=200)
+    else:
+        return JSONResponse(content={"status": "error"}, status_code=500)

@@ -12,6 +12,7 @@ app.mount("/static", StaticFiles(directory="./lanhackfrontend"), name="static")
 app.include_router(api_router, prefix="/api")
 app.include_router(pages_router)
 
+# init storage
 app.add_event_handler("startup", storage.init)
 
 

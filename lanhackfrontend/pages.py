@@ -1,6 +1,5 @@
+from fastapi import Request, APIRouter
 from fastapi.templating import Jinja2Templates
-from fastapi import Request
-from fastapi import APIRouter
 
 pages_router = APIRouter()
 templates = Jinja2Templates(directory="./lanhackfrontend")

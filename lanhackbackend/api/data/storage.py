@@ -44,11 +44,12 @@ class Storage:
         except:
             return False
 
-    def get_uids(self):
+    def get_uids(self) -> json:
         with open(f"{DATA_PATH}/uids.json", "r") as f:
-            data = json.load(f)
+            data = json.load(f)["uids"]
         return data
 
+    # util to write init json
     def __write_init_json(self):
         with open(f"{DATA_PATH}/uids.json", "w") as f:
             json.dump({"uids": []}, f)
