@@ -1,8 +1,9 @@
-from fastapi.routing import APIRouter
+from fastapi.routing import APIRouter, WebSocket
 from fastapi.responses import JSONResponse
 
 from backend.routes.ingest import ingest_router
 from backend.data.storage import storage
+from backend.websocket import socket_manager
 
 api_router = APIRouter()
 
@@ -21,3 +22,16 @@ api_router.include_router(ingest_router, prefix="/ingest")
 async def get_uids():
     uids = storage.get_uids()
     return JSONResponse(content={"status": "success", "uids": uids}, status_code=200)
+
+
+# send message to all connected clients (post)
+@api_router.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    socket_manager.register(websocket)
+    try:
+        while True:
+            data = await websocket.receive_json()
+            await socket_manager.broadcast(data)
+    except:
+        socket_manager.unregister(websocket)

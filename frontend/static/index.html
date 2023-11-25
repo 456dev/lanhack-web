@@ -13,20 +13,22 @@
 
     <link rel="stylesheet" href="/static/css/style.css" />
     
-    <script src="/static/main.js"></script>
+    <script src="/static/index.js"></script>
+    <script src="/static/websocket.js"></script>
   </head>
 
   <body>
     <div class="container mt-5">
       <div class="row align-items-center">
         <div class="col text-center">
-          <h1 class="h1 fw-semibold">RFID UIDs</>
+          <h1 class="h1 fw-semibold">RFID UIDs</s>
           <div class="mt-5">
             <ul id="uid-list" class="list-group mx-auto" style="max-width: 650px;"></ul>
           </div>
         </div>
       </div>
     </div>
+    <p id="message"></p>
 
     <div class="container-fluid">
       <div class="row">
@@ -35,7 +37,7 @@
       </div>
     </div>
     <script>
-      main()
+      start()
     </script>
   </body>
 </html>

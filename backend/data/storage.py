@@ -29,20 +29,19 @@ class Storage:
 
             # append new uid to data
             # timestamp in ISO format
-            data["uids"].append(
-                {
-                    "uid": uid,
-                    "timestamp": datetime.datetime.now().isoformat(),
-                }
-            )
+            item = {
+                "uid": uid,
+                "timestamp": datetime.datetime.now().isoformat(),
+            }
+            data["uids"].append(item)
 
             # write new uid to file
             with open(FILE_PATH, "w") as f:
                 json.dump(data, f)
 
-            return True
+            return item
         except:
-            return False
+            return None
 
     def get_uids(self) -> json:
         with open(FILE_PATH, "r") as f:

@@ -1,6 +1,5 @@
-function main() {
+function start() {
   updateUIDList();
-  setInterval(updateUIDList, 1000);
 }
 
 function updateUIDList() {
@@ -14,9 +13,12 @@ function updateUIDList() {
 function setUIDList(uids) {
   var list = document.getElementById("uid-list");
   list.innerHTML = "";
-  uids.forEach(function(uid) {
-    list.appendChild(createUIDElement(uid));
-  });
+  uids.forEach(addUIDToList);
+}
+
+function addUIDToList(uid) {
+  var list = document.getElementById("uid-list");
+  list.prepend(createUIDElement(uid));
 }
 
 function createUIDElement(uid) {

@@ -28,7 +28,7 @@ api.add_event_handler("startup", storage.init)
 
 def app():
     # run app on local server
-    uvicorn.run(api, host="localhost", port=8000)
+    uvicorn.run("app.main:api", host="localhost", port=8000, reload=True)
 
 
 if __name__ == "__main__":
