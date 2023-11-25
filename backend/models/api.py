@@ -3,11 +3,11 @@ from typing import Literal, Union, Annotated
 from pydantic import BaseModel, Field, ValidationError
 
 class Success(BaseModel):
-    status: Literal['success']
+    status: Literal['success'] = "success"
 
 
 class Error(BaseModel):
-    status: Literal['error']
+    status: Literal['error'] = "error"
     message: str
 
 
