@@ -6,7 +6,7 @@ from api.data.storage import storage
 
 # init fastapi
 app = FastAPI()
-app.include_router(router, prefix="api")
+app.include_router(router, prefix="/api")
 
 # init storage
 storage.init()
