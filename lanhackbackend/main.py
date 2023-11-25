@@ -7,11 +7,12 @@ from lanhackbackend.api.routes.base import api_router
 
 # init fastapi
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="./lanhackfrontend"), name = "static")
+app.mount("/static", StaticFiles(directory="./lanhackfrontend"), name="static")
 app.include_router(api_router, prefix="/api")
 
 # init storage
 storage.init()
+
 
 def main():
     # run server
