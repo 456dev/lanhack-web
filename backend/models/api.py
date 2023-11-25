@@ -2,6 +2,7 @@ from typing import Literal, Union, Annotated
 
 from pydantic import BaseModel, Field, ValidationError
 
+
 class Success(BaseModel):
     status: Literal['success'] = "success"
 
