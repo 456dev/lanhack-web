@@ -1,6 +1,7 @@
 from fastapi.routing import APIRouter
 from fastapi.requests import Request
 
+from api.data.storage import storage
 
 router = APIRouter()
 
@@ -17,8 +18,8 @@ async def root():
 @router.post("/push-uid")
 async def push(request: Request):
     json = await request.json()
-    print(json)
-    return {"result": 200}
+    success = storage.push_uid(json["uid"])
+    return {"result": 200 if success else 500}
 
 
 # return all uids from server (get)
@@ -31,4 +32,4 @@ async def push(request: Request):
 # }
 @router.get("/get-uids")
 async def pull():
-    return {"result": 200}
+    return storage.get_uids()
