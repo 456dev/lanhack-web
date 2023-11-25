@@ -1,4 +1,3 @@
-from fastapi.requests import Request
 from fastapi.responses import JSONResponse
 from fastapi.routing import APIRouter
 from pydantic import BaseModel
