@@ -16,7 +16,7 @@ async def root():
 # push uid to server (post)
 # uid is in json format in body
 # return 200 if in format: {"uid": "uid1"}
-@router.post("/push-uid")
+@router.post("/ingest/cardread")
 async def push(request: Request):
     json = await request.json()
     success = storage.push_uid(json["uid"])
