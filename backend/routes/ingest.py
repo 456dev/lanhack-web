@@ -12,12 +12,12 @@ async def root():
     return JSONResponse(content={"status": "success"}, status_code=200)
 
 
-class CardRead(BaseModel):
+class UIDModel(BaseModel):
     uid: str
 
 
-@ingest_router.post("/cardread")
-async def push(body: CardRead):
+@ingest_router.post("/push-uid")
+async def push(body: UIDModel):
     success = storage.push_uid(body.uid)
     if success:
         return JSONResponse(content={"status": "success"}, status_code=200)

@@ -1,11 +1,11 @@
 from fastapi.routing import APIRouter
 from fastapi.responses import JSONResponse
 
-import backend.routes.ingest as ingest
+from backend.routes.ingest import ingest_router
 from backend.data.storage import storage
 
 api_router = APIRouter()
-api_router.include_router(ingest.ingest_router, prefix="/ingest")
+api_router.include_router(ingest_router, prefix="/ingest")
 
 
 # return all uids from server (get)

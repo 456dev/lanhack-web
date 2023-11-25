@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from backend.data.storage import storage
-from backend.routes.base import api_router
+from backend.routes.api import api_router
 from frontend.routes.pages import pages_router
 
 # init fastapi
