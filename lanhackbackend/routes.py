@@ -1,7 +1,8 @@
-from fastapi import Router
+from fastapi.routing import APIRouter
+from fastapi.requests import Request
 
 
-router = Router()
+router = APIRouter()
 
 
 # APP ROUTES
@@ -11,8 +12,12 @@ async def root():
 
 
 # push uid to server (post)
-@router.post("/push-uid/{uid}")
-async def push(uid: str):
+# uid is in json format in body
+# return 200 if in format: {"uid": "uid1"}
+@router.post("/push-uid")
+async def push(request: Request):
+    json = await request.json()
+    print(json)
     return {"result": 200}
 
 

@@ -1,3 +1,5 @@
 .venv
 /elm-stuff
 /result*
+.vscode
+__pycache__
