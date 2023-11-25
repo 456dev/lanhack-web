@@ -1,11 +1,13 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 from lanhackbackend.api.data.storage import storage
 from lanhackbackend.api.routes.base import api_router
 
 # init fastapi
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="./lanhackfrontend"), name = "static")
 app.include_router(api_router, prefix="/api")
 
 # init storage
