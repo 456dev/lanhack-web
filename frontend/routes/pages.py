@@ -5,6 +5,7 @@ pages_router = APIRouter()
 templates = Jinja2Templates(directory="./frontend/static")
 
 
+# serve index.html
 @pages_router.get("/")
 def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})

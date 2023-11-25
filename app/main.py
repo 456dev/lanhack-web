@@ -10,11 +10,15 @@ from frontend.routes.pages import pages_router
 
 # init fastapi
 api = FastAPI()
+
+# locate static files for frontend
 api.mount(
     "/static",
     StaticFiles(directory=os.path.realpath("./frontend/static")),
     name="static",
 )
+
+# link routes for frontend and backend
 api.include_router(api_router, prefix="/api")
 api.include_router(pages_router)
 

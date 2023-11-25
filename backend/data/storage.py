@@ -2,8 +2,9 @@ import json
 import datetime
 import os
 
-# get current working directory
+# path to data file containing uids
 DATA_PATH = os.path.dirname(os.path.realpath(__file__))
+FILE_PATH = DATA_PATH + "/uids.json"
 
 
 class Storage:
@@ -11,9 +12,8 @@ class Storage:
         pass
 
     def init(self):
-        print("Initializing storage")
         try:
-            with open(f"{DATA_PATH}/uids.json", "r") as f:
+            with open(FILE_PATH, "r") as f:
                 # if file is blank, write init json
                 if f.read() == "":
                     self.__write_init_json()
@@ -24,7 +24,7 @@ class Storage:
     def push_uid(self, uid: str):
         try:
             # load json data
-            with open(f"{DATA_PATH}/uids.json", "r") as f:
+            with open(FILE_PATH, "r") as f:
                 data = json.load(f)
 
             # append new uid to data
@@ -37,7 +37,7 @@ class Storage:
             )
 
             # write new uid to file
-            with open(f"{DATA_PATH}/uids.json", "w") as f:
+            with open(FILE_PATH, "w") as f:
                 json.dump(data, f)
 
             return True
@@ -45,13 +45,13 @@ class Storage:
             return False
 
     def get_uids(self) -> json:
-        with open(f"{DATA_PATH}/uids.json", "r") as f:
+        with open(FILE_PATH, "r") as f:
             data = json.load(f)["uids"]
         return data
 
     # util to write init json
     def __write_init_json(self):
-        with open(f"{DATA_PATH}/uids.json", "w") as f:
+        with open(FILE_PATH, "w") as f:
             json.dump({"uids": []}, f)
 
 
