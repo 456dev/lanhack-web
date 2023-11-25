@@ -1,6 +1,7 @@
 import json
 import datetime
 import os
+from typing import Optional, Literal, Union
 
 # path to data file containing uids
 DATA_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -21,7 +22,7 @@ class Storage:
             # file does not exist, create it and write init json
             self.__write_init_json()
 
-    def push_uid(self, uid: str):
+    def push_uid(self, uid: str) -> Union[tuple[Literal[True], Literal[None]],tuple[Literal[False], str]]:
         try:
             # load json data
             with open(FILE_PATH, "r") as f:
@@ -40,9 +41,9 @@ class Storage:
             with open(FILE_PATH, "w") as f:
                 json.dump(data, f)
 
-            return True
-        except:
-            return False
+            return True, None
+        except Exception as e:
+            return False, str(e)
 
     def get_uids(self) -> json:
         with open(FILE_PATH, "r") as f:
