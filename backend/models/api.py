@@ -1,6 +1,6 @@
 from typing import Literal, Union, Annotated
 
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import BaseModel, Field
 
 
 class Success(BaseModel):
@@ -15,3 +15,11 @@ class Error(BaseModel):
 Status = Annotated[Union[Success, Error], Field(discriminator='status')]
 
 
+class UIDEntry(BaseModel):
+    uid: str
+    timestamp: str
+
+
+class GetUidResponse(BaseModel):
+    status: Literal['success'] = "success"
+    data: list[UIDEntry]
