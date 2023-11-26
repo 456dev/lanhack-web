@@ -49,6 +49,8 @@ class Storage:
             return (False, e)
 
     def get_uids(self) -> json:
+        if not pathlib.Path(FILE_PATH).is_file():
+            self.__write_init_json()
         with open(FILE_PATH, "r") as f:
             data = json.load(f)["uids"]
         return data

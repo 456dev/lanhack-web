@@ -10,6 +10,14 @@ function updateUIDList() {
   setUIDList(response["uids"]);
 }
 
+async function clearUIDList() {
+  await fetch("/api/clear-uids", {method: "POST"})
+  updateUIDList()
+}
+
+
+
+
 function setUIDList(uids) {
   var list = document.getElementById("uid-list");
   list.innerHTML = "";
