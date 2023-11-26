@@ -1,5 +1,6 @@
 from fastapi.routing import APIRouter, WebSocket
 from fastapi.responses import JSONResponse
+from fastapi import WebSocketDisconnect
 
 from backend.routes.ingest import ingest_router
 import backend.models.api as api_models
@@ -41,4 +42,6 @@ async def websocket_endpoint(websocket: WebSocket):
             data = await websocket.receive_json()
             await socket_manager.broadcast(data)
     except RuntimeError:
+        socket_manager.unregister(websocket)
+    except WebSocketDisconnect:
         socket_manager.unregister(websocket)
