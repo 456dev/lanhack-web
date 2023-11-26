@@ -1,3 +1,3 @@
-import main
+import app.main
 
-main.app()
+app.main.main()
