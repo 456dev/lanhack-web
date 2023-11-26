@@ -2,6 +2,8 @@ from fastapi.routing import APIRouter, WebSocket
 from fastapi.responses import JSONResponse
 
 from backend.routes.ingest import ingest_router
+import backend.models.api as api_models
+
 from backend.data.storage import storage
 from backend.websocket import socket_manager
 
@@ -18,10 +20,9 @@ api_router.include_router(ingest_router, prefix="/ingest")
 #       {"uid": "uid2", "timestamp": "ISO timestamp"}
 #   ],
 # }
-@api_router.get("/get-uids")
+@api_router.get("/get-uids", response_model=api_models.GetUidResponse)
 async def get_uids():
-    uids = storage.get_uids()
-    return JSONResponse(content={"status": "success", "uids": uids}, status_code=200)
+    return JSONResponse(content={"status": "success", "uids": storage.get_uids()})
 
 
 # send message to all connected clients (post)

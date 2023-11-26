@@ -3,16 +3,18 @@ from typing import Literal, Union, Annotated
 from pydantic import BaseModel, Field
 
 
-class Success(BaseModel):
-    status: Literal['success'] = "success"
+class SuccessfulResponse(BaseModel):
+    status: Literal["success"] = "success"
 
 
-class Error(BaseModel):
-    status: Literal['error'] = "error"
+class ErroredResponse(BaseModel):
+    status: Literal["error"] = "error"
     message: str
 
 
-Status = Annotated[Union[Success, Error], Field(discriminator='status')]
+BaseStatusResponse = Annotated[
+    Union[SuccessfulResponse, ErroredResponse], Field(discriminator="status")
+]
 
 
 class UIDEntry(BaseModel):
@@ -20,6 +22,5 @@ class UIDEntry(BaseModel):
     timestamp: str
 
 
-class GetUidResponse(BaseModel):
-    status: Literal['success'] = "success"
-    data: list[UIDEntry]
+class GetUidResponse(SuccessfulResponse):
+    uids: list[UIDEntry]
