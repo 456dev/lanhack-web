@@ -1,6 +1,7 @@
 import json
 import datetime
 import os
+import pathlib
 from typing import Optional, Literal, Union
 
 # path to data file containing uids
@@ -25,6 +26,9 @@ class Storage:
     def push_uid(self, uid: str):
         try:
             # load json data
+            if not pathlib.Path(FILE_PATH).is_file():
+                self.__write_init_json()
+
             with open(FILE_PATH, "r") as f:
                 data = json.load(f)
 
