@@ -22,7 +22,7 @@ api_router.include_router(ingest_router, prefix="/ingest")
 # }
 @api_router.get("/get-uids", response_model=api_models.GetUidResponse)
 async def get_uids():
-    return JSONResponse(content={"status": "success", "uids": storage.get_uids()})
+    return api_models.GetUidResponse(uids=storage.get_uids())
 
 
 # send message to all connected clients (post)
