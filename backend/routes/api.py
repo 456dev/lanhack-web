@@ -1,5 +1,4 @@
 from fastapi.routing import APIRouter, WebSocket
-from fastapi.responses import JSONResponse
 
 from backend.routes.ingest import ingest_router
 import backend.models.api as api_models

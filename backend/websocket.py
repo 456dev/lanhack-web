@@ -1,4 +1,5 @@
 from fastapi import WebSocket
+import json
 
 
 # create socket manager that stores a list of websockets linked to channels
@@ -13,7 +14,7 @@ class SocketManager:
     def unregister(self, websocket: WebSocket):
         self.__sockets.remove(websocket)
 
-    async def broadcast(self, message: str):
+    async def broadcast(self, message: json):
         for socket in self.__sockets:
             await socket.send_json(message)
 

@@ -4,6 +4,7 @@ function start() {
 
 let global_response = null;
 
+// fetches the list of uids from the database and updates the list on the page
 function updateUIDList() {
   let xmlHttp = new XMLHttpRequest();
   xmlHttp.open("GET", "/api/get-uids", false);
@@ -13,11 +14,13 @@ function updateUIDList() {
   setUIDList(response["uids"]);
 }
 
+// removes all uids from the database
 async function clearUIDList() {
   await fetch("/api/clear-uids", {method: "POST"})
   updateUIDList()
 }
 
+// exports the list of uids as a csv file
 async function exportAsCsv() {
   let response
   if (global_response === null) {
@@ -46,17 +49,20 @@ async function exportAsCsv() {
           {type: "text/csv"})), "_blank")
 }
 
+// sets the contents of the uid list to the given uids
 function setUIDList(uids) {
   var list = document.getElementById("uid-list");
   list.innerHTML = "";
   uids.forEach(addUIDToList);
 }
 
+// adds a uid to the list, add badge if already top of list
 function addUIDToList(uid) {
   var list = document.getElementById("uid-list");
   list.prepend(createUIDElement(uid));
 }
 
+// creates a new list element representing the given uid
 function createUIDElement(uid) {
   var element = document.createElement("button");
   element.setAttribute("type", "button");
