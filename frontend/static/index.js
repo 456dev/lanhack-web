@@ -2,14 +2,11 @@ function start() {
   updateUIDList();
 }
 
-let global_response = null;
-
 function updateUIDList() {
   let xmlHttp = new XMLHttpRequest();
   xmlHttp.open("GET", "/api/get-uids", false);
   xmlHttp.send(null);
   let response = JSON.parse(xmlHttp.responseText);
-  global_response = response
   setUIDList(response["uids"]);
 }
 
@@ -19,15 +16,11 @@ async function clearUIDList() {
 }
 
 async function exportAsCsv() {
-  let response
-  if (global_response === null) {
-    let xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", "/api/get-uids", false);
-    xmlHttp.send(null);
-    response = JSON.parse(xmlHttp.responseText);
-  } else {
-    response = global_response
-  }
+  let xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("GET", "/api/get-uids", false);
+  xmlHttp.send(null);
+  let response = JSON.parse(xmlHttp.responseText);
+
 
   let csvish = "timestamp,uid\n"
   if (response !== null) {
