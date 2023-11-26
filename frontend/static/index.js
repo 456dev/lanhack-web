@@ -19,13 +19,14 @@ async function clearUIDList() {
 }
 
 async function exportAsCsv() {
+  let response
   if (global_response === null) {
     let xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", "/api/get-uids", false);
     xmlHttp.send(null);
-    let response = JSON.parse(xmlHttp.responseText);
+    response = JSON.parse(xmlHttp.responseText);
   } else {
-    let response = global_response
+    response = global_response
   }
 
   let csvish = "timestamp,uid\n"
