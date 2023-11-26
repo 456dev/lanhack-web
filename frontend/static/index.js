@@ -18,7 +18,6 @@ async function clearUIDList() {
   updateUIDList()
 }
 
-
 async function exportAsCsv() {
   if (global_response === null) {
     let xmlHttp = new XMLHttpRequest();
@@ -28,22 +27,23 @@ async function exportAsCsv() {
   } else {
     let response = global_response
   }
-  let uidData = response["uids"]
-  let csvish = "timestamp,uid\n"
 
-  for (const uidDatum of uidData) {
-    let uid = uidDatum["uid"]
-    let timestamp = uidDatum["timestamp"]
-    csvish += (timestamp + "," + uid + "\n")
+  let csvish = "timestamp,uid\n"
+  if (response !== null) {
+    let uidData = response["uids"]
+    for (const uidDatum of uidData) {
+      let uid = uidDatum["uid"]
+      let timestamp = uidDatum["timestamp"]
+      csvish += (timestamp + "," + uid + "\n")
+    }
   }
-  console.log(csvish)
+
   let currentTime = new Date()
   currentTime.toISOString()
-  window.open(window.URL.createObjectURL(new File([csvish], "export_"+currentTime.toISOString()+".csv",
-      {type: "text/csv"})), "_blank")
+  window.open(window.URL.createObjectURL(
+      new File([csvish], "export_" + currentTime.toISOString() + ".csv",
+          {type: "text/csv"})), "_blank")
 }
-
-
 
 function setUIDList(uids) {
   var list = document.getElementById("uid-list");
