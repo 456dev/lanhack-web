@@ -56,7 +56,7 @@ function setUIDList(uids) {
   uids.forEach(addUIDToList);
 }
 
-// adds a uid to the list, add badge if already top of list
+// adds a uid to the list
 function addUIDToList(uid) {
   var list = document.getElementById("uid-list");
   list.prepend(createUIDElement(uid));
