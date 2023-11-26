@@ -53,6 +53,14 @@ class Storage:
             data = json.load(f)["uids"]
         return data
 
+    def clear_uids(self) -> bool:
+        path = pathlib.Path(FILE_PATH)
+        if path.exists():
+            path.unlink()
+            return True
+        else:
+            return False
+
     # util to write init json
     def __write_init_json(self):
         with open(FILE_PATH, "w") as f:

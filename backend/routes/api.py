@@ -25,6 +25,12 @@ async def get_uids():
     return api_models.UidGetResponse(uids=storage.get_uids())
 
 
+@api_router.post("/clear-uids")
+async def clear_uids() -> api_models.BaseStatusResponse:
+    storage.clear_uids()
+    return api_models.SuccessfulResponse()
+
+
 # send message to all connected clients (post)
 @api_router.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
