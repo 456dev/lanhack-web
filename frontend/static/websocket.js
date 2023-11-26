@@ -7,9 +7,10 @@ function setupWebsockets() {
     addUIDToList(JSON.parse(event.data));
   });
   socket.addEventListener("close", (event) => {
-    setTimeout(setupWebsockets, 1000);
-  });
+    setTimeout(event => {window.location.reload()}, 1000);
+  })
   socket.addEventListener("error", (event) => {
-    setTimeout(setupWebsockets, 1000);
-  });
+    setTimeout(event => {window.location.reload()}, 1000);
+
+  })
 }

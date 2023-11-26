@@ -2,15 +2,12 @@ function start() {
   updateUIDList();
 }
 
-let global_response = null;
-
 // fetches the list of uids from the database and updates the list on the page
 function updateUIDList() {
   let xmlHttp = new XMLHttpRequest();
   xmlHttp.open("GET", "/api/get-uids", false);
   xmlHttp.send(null);
   let response = JSON.parse(xmlHttp.responseText);
-  global_response = response
   setUIDList(response["uids"]);
 }
 
@@ -22,15 +19,11 @@ async function clearUIDList() {
 
 // exports the list of uids as a csv file
 async function exportAsCsv() {
-  let response
-  if (global_response === null) {
-    let xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", "/api/get-uids", false);
-    xmlHttp.send(null);
-    response = JSON.parse(xmlHttp.responseText);
-  } else {
-    response = global_response
-  }
+  let xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("GET", "/api/get-uids", false);
+  xmlHttp.send(null);
+  let response = JSON.parse(xmlHttp.responseText);
+
 
   let csvish = "timestamp,uid\n"
   if (response !== null) {
