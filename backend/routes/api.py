@@ -33,5 +33,5 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             data = await websocket.receive_json()
             await socket_manager.broadcast(data)
-    except:
+    except RuntimeError:
         socket_manager.unregister(websocket)
