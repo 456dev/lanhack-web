@@ -1,7 +1,19 @@
 // Create a new WebSocket connection
-const socket = new WebSocket('ws://' + window.location.host + '/api/ws');
 
-// Add an event listener to the WebSocket connection
-socket.addEventListener('message', (event) => {
-  addUIDToList(JSON.parse(event.data));
-});
+let socket
+
+function setupWebsockets() {
+  socket = new WebSocket('ws://' + window.location.host + '/api/ws');
+  socket.addEventListener('message', (event) => {
+    addUIDToList(JSON.parse(event.data));
+  });
+  socket.addEventListener("close", ev => {
+    setTimeout(setupWebsockets, 1000);
+  })
+  socket.addEventListener("error", ev => {
+    setTimeout(setupWebsockets, 1000);
+
+  })
+}
+
+setupWebsockets()
